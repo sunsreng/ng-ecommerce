@@ -1,16 +1,5 @@
 <div fxLayout="column" fxFlex>
-  <md-toolbar color="primary">
-    <span>Angular Material</span>&nbsp;
-    <button md-icon-button>
-      <md-icon class="md-24" aria-label="Example icon-button with a heart icon">shopping_cart</md-icon>
-    </button>
-
-    <span fxFlex></span>
-
-    <button md-icon-button [mdMenuTriggerFor]="themeMenu">
-      <md-icon>more_vert</md-icon>
-    </button>
-  </md-toolbar>
+  <app-md-toolbar></app-md-toolbar>
 
   <md-sidenav-container fxFlex>
     <md-sidenav mode="side" opened>
@@ -19,20 +8,16 @@
           <app-md-navbar></app-md-navbar>
         </md-tab>
         <md-tab label="Settings">
-            <app-md-navbar></app-md-navbar>
+          <app-md-navbar></app-md-navbar>
         </md-tab>
       </md-tab-group>
     </md-sidenav>
     <div class="content" fxLayout="row" fxLayout.sm="column" fxLayoutGap="16px">
-      <md-card fxFlex="50"></md-card>
-      <md-card fxFlex fxLayout="column" fxLayoutGap="44px"></md-card>
+      <md-card fxFlex>
+        <router-outlet></router-outlet>
+      </md-card>
     </div>
   </md-sidenav-container>
-
-  <md-menu #themeMenu x-position="before">
-      <button md-menu-item>Toggle Theme</button>
-      <button md-menu-item>Settings</button>
-  </md-menu>
 
   <button md-fab (click)="openAdminDialog()" class="fab-bottom-right">
     <md-icon>add</md-icon>
