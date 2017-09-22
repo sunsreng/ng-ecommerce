@@ -1,0 +1,42 @@
+<md-accordion class="example-headers-align">
+  <md-expansion-panel [expanded]="true" hideToggle="true">
+    <md-expansion-panel-header>
+      <md-panel-title>
+        Personal data
+      </md-panel-title>
+      <md-panel-description>
+        <md-icon>account_circle</md-icon>
+      </md-panel-description>
+    </md-expansion-panel-header>
+
+    <button md-menu-item><md-icon>account_circle</md-icon> Settings </button>
+    <button md-menu-item><md-icon>account_circle</md-icon> Help </button>
+  </md-expansion-panel>
+
+  <md-expansion-panel hideToggle="true">
+    <md-expansion-panel-header>
+      <md-panel-title>
+        Destination
+      </md-panel-title>
+      <md-panel-description>
+        <md-icon>map</md-icon>
+      </md-panel-description>
+    </md-expansion-panel-header>
+
+    <md-form-field>
+      <input mdInput placeholder="Country">
+    </md-form-field>
+  </md-expansion-panel>
+
+  <md-expansion-panel hideToggle="true">
+    <md-expansion-panel-header>
+      <md-panel-title>
+        Day of the trip
+      </md-panel-title>
+      <md-panel-description>
+        <md-icon>date_range</md-icon>
+      </md-panel-description>
+    </md-expansion-panel-header>
+  </md-expansion-panel>
+
+</md-accordion>

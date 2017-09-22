@@ -1,4 +1,6 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { Component } from '@angular/core';
+import { MdIconRegistry, MdDialog } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
 }
