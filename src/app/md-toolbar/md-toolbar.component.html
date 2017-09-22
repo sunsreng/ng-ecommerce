@@ -1,7 +1,6 @@
 <md-toolbar color="primary">
-  <span>Angular Material</span>&nbsp;
-  <button md-icon-button routerLink="/">
-    <md-icon class="md-24" aria-label="Example icon-button with a heart icon">home</md-icon>
+  <button md-button routerLink="/">
+    <h2>Mana Shop</h2>
   </button>
   <a md-icon-button routerLink="/shopping-cart">
     <md-icon class="md-24" aria-label="Example icon-button with a heart icon">shopping_cart</md-icon>
@@ -9,12 +8,26 @@
 
   <span fxFlex></span>
 
-  <button md-icon-button [mdMenuTriggerFor]="themeMenu">
-    <md-icon>more_vert</md-icon>
+  <button md-button [mdMenuTriggerFor]="themeMenu">
+    <md-icon>account_circle</md-icon> SUN SRENG
   </button>
 </md-toolbar>
 
 <md-menu #themeMenu x-position="before">
-  <button md-menu-item>Toggle Theme</button>
-  <button md-menu-item>Settings</button>
+  <a md-menu-item routerLink="/my/orders">
+    <md-icon>shopping_basket</md-icon>
+    <span>My Orders</span>
+  </a>
+  <a md-menu-item routerLink="/admin/orders">
+    <md-icon>format_list_bulleted</md-icon>
+    <span>Manage Orders</span>
+  </a>
+  <a md-menu-item routerLink="/admin/products">
+    <md-icon>format_list_bulleted</md-icon>
+    <span>Manage Product</span>
+  </a>
+  <a md-menu-item>
+    <md-icon>input</md-icon>
+    <span>Log Out</span>
+  </a>
 </md-menu>
