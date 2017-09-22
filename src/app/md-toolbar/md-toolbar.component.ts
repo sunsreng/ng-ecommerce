@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Rx';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./md-toolbar.component.css']
 })
 export class MdToolbarComponent {
+  user$: Observable<firebase.User>;
 
+  constructor(private afAuth: AngularFireAuth) {
+    this.user$ = afAuth.authState;
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
+  }
 }

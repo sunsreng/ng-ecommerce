@@ -8,8 +8,13 @@
 
   <span fxFlex></span>
 
-  <button md-button [mdMenuTriggerFor]="themeMenu">
-    <md-icon>account_circle</md-icon> SUN SRENG
+  <ng-template #anonymousUser>
+    <a md-button routerLink="/login">
+      <md-icon class="md-24" aria-label="Example icon-button with a heart icon">lock</md-icon> Login
+    </a>
+  </ng-template>
+  <button *ngIf="user$ | async as user; else anonymousUser" md-button [mdMenuTriggerFor]="themeMenu">
+    <md-icon>account_circle</md-icon> {{ user.displayName | uppercase}}
   </button>
 </md-toolbar>
 
@@ -26,7 +31,7 @@
     <md-icon>format_list_bulleted</md-icon>
     <span>Manage Product</span>
   </a>
-  <a md-menu-item>
+  <a md-menu-item (click)="logout()">
     <md-icon>input</md-icon>
     <span>Log Out</span>
   </a>
