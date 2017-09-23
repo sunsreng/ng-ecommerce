@@ -1,20 +1,25 @@
-import { Observable } from 'rxjs/Rx';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { AuthService } from '../auth.service';
+import { AppUser } from '../models/app-user';
 
 @Component({
   selector: 'app-md-toolbar',
   templateUrl: './md-toolbar.component.html',
   styleUrls: ['./md-toolbar.component.css']
 })
-export class MdToolbarComponent {
-  user$: Observable<firebase.User>;
+export class MdToolbarComponent implements OnInit {
+  appUser: AppUser;
+  isAdmin = true;
 
-  constructor(private afAuth: AngularFireAuth) {
-    this.user$ = afAuth.authState;
+  constructor(private auth: AuthService) {
+
   }
 
+  ngOnInit() {
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+  }
   logout() {
-    this.afAuth.auth.signOut();
+    this.auth.logout();
   }
 }

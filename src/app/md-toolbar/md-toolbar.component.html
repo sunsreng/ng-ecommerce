@@ -13,8 +13,8 @@
       <md-icon class="md-24" aria-label="Example icon-button with a heart icon">lock</md-icon> Login
     </a>
   </ng-template>
-  <button *ngIf="user$ | async as user; else anonymousUser" md-button [mdMenuTriggerFor]="themeMenu">
-    <md-icon>account_circle</md-icon> {{ user.displayName | uppercase}}
+  <button *ngIf="appUser; else anonymousUser" md-button [mdMenuTriggerFor]="themeMenu">
+    <md-icon>account_circle</md-icon> {{ appUser.name | uppercase }}
   </button>
 </md-toolbar>
 
@@ -23,14 +23,16 @@
     <md-icon>shopping_basket</md-icon>
     <span>My Orders</span>
   </a>
-  <a md-menu-item routerLink="/admin/orders">
-    <md-icon>format_list_bulleted</md-icon>
-    <span>Manage Orders</span>
-  </a>
-  <a md-menu-item routerLink="/admin/products">
-    <md-icon>format_list_bulleted</md-icon>
-    <span>Manage Product</span>
-  </a>
+  <ng-container *ngIf="isAdmin">
+    <a md-menu-item routerLink="/admin/orders">
+      <md-icon>format_list_bulleted</md-icon>
+      <span>Manage Orders</span>
+    </a>
+    <a md-menu-item routerLink="/admin/products">
+      <md-icon>format_list_bulleted</md-icon>
+      <span>Manage Product</span>
+    </a>
+  </ng-container>
   <a md-menu-item (click)="logout()">
     <md-icon>input</md-icon>
     <span>Log Out</span>
