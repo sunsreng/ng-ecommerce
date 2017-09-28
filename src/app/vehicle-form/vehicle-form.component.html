@@ -1,0 +1,14 @@
+<form class="example-form">
+    <md-select placeholder="Make" class="full-width" (change)="onMakeChange()" [(ngModel)]="vehicle.make" name="make">
+      <md-option value=""></md-option>
+      <md-option *ngFor="let make of makes" [value]="make.id">{{ make.name }}</md-option>
+    </md-select>
+    <md-select placeholder="Model" class="full-width">
+      <md-option value=""></md-option>
+      <md-option *ngFor="let model of models" [value]="model.id">{{ model.name }}</md-option>
+    </md-select>
+    <section>
+      <md-checkbox *ngFor="let f of features" id="feature{{ f.id }}" class="check-margin">{{ f.name }}</md-checkbox>
+    </section>
+</form>
+
