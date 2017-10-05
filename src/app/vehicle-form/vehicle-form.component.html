@@ -1,14 +1,89 @@
-<form class="example-form">
-    <md-select placeholder="Make" class="full-width" (change)="onMakeChange()" [(ngModel)]="vehicle.make" name="make">
-      <md-option value=""></md-option>
-      <md-option *ngFor="let make of makes" [value]="make.id">{{ make.name }}</md-option>
-    </md-select>
-    <md-select placeholder="Model" class="full-width">
-      <md-option value=""></md-option>
-      <md-option *ngFor="let model of models" [value]="model.id">{{ model.name }}</md-option>
-    </md-select>
-    <section>
-      <md-checkbox *ngFor="let f of features" id="feature{{ f.id }}" class="check-margin">{{ f.name }}</md-checkbox>
-    </section>
+<!-- <div class="container">
+<form class="form-width">
+  <h1>New Vehicle</h1>
+  <div fxLayout="column" fxLayoutAlign="center stretch" >
+    {{ vehicle | json }}
+  </div>
+  <md-select placeholder="Make" class="full-width" (change)="onMakeChange()" [(ngModel)]="vehicle.makeId" name="makeId">
+    <md-option value=""></md-option>
+    <md-option *ngFor="let make of makes" [value]="make.id">{{ make.name }}</md-option>
+  </md-select>
+  <md-select placeholder="Model" class="full-width" [(ngModel)]="vehicle.modelId" name="modelId">
+    <md-option value=""></md-option>
+    <md-option *ngFor="let model of models" [value]="model.id">{{ model.name }}</md-option>
+  </md-select>
+  <h2 class="example-h2">Is this vehicle registered?</h2>
+  <md-radio-group [(ngModel)]="vehicle.isRegistered" name="isRegistered">
+    <md-radio-button class="check-margin" [value]="true">Yes</md-radio-button>
+    <md-radio-button class="check-margin" [value]="false">No</md-radio-button>
+  </md-radio-group>
+  <h2 class="example-h2">Features</h2>
+  <section>
+    <md-checkbox *ngFor="let f of features" id="feature{{ f.id }}">{{ f.name }}</md-checkbox>
+  </section>
+  <h2 class="example-h2">Features</h2>
+  <section>
+    <md-form-field class="full-width">
+      <input mdInput id="contactName" placeholder="Name">
+    </md-form-field>
+    <md-form-field class="full-width">
+      <input mdInput id="contactPhone" placeholder="Phone">
+    </md-form-field>
+    <md-form-field class="full-width">
+      <input mdInput id="contactEmail" placeholder="Email">
+    </md-form-field>
+  </section>
+  <button md-raised-button color="primary">Save</button>
 </form>
+</div> -->
 
+<div class="container"
+fxLayout
+fxLayout.xs="column"
+fxLayoutAlign="center"
+fxLayoutGap="10px"
+fxLayoutGap.xs="0">
+<div fxFlex="98%">
+  <form #f="ngForm" (ngSubmit)="submit()" class="form-width" novalidate>
+      <h1>New Vehicle</h1>
+      <div fxLayout="column" fxLayoutAlign="center stretch" >
+        {{ vehicle | json }}
+      </div>
+      <md-select class="e-width check-margin" placeholder="Make" (change)="onMakeChange()" [(ngModel)]="vehicle.makeId" name="makeId" required #make="ngModel">
+        <md-option value=""></md-option>
+        <md-option *ngFor="let make of makes" [value]="make.id">{{ make.name }}</md-option>
+      </md-select>
+      <md-hint class="error" *ngIf="make.touched && !make.valid">Please specify the make.</md-hint>
+      <md-select class="e-width check-margin" placeholder="Model" [(ngModel)]="vehicle.modelId" name="modelId" required #model="ngModel">
+        <md-option value=""></md-option>
+        <md-option *ngFor="let model of models" [value]="model.id">{{ model.name }}</md-option>
+      </md-select>
+      <md-hint class="error" *ngIf="model.touched && !model.valid">Please specify the model.</md-hint>
+      <h2 class="example-h2">Is this vehicle registered?</h2>
+      <md-radio-group [(ngModel)]="vehicle.isRegistered" name="isRegistered">
+        <md-radio-button class="check-margin" [value]="true">Yes</md-radio-button>
+        <md-radio-button class="check-margin" [value]="false">No</md-radio-button>
+      </md-radio-group>
+      <h2 class="example-h2">Features</h2>
+      <section>
+        <md-checkbox class="check-margin" *ngFor="let f of features" id="feature{{ f.id }}" (change)="onFeatureToggle(f.id, $event)" [checked]="vehicle.features.includes(f.id)">{{ f.name }}</md-checkbox>
+      </section>
+      <h2 class="example-h2">Features</h2>
+      <section>
+        <md-form-field class="e-width">
+          <input mdInput id="contactName" placeholder="Name" [(ngModel)]="vehicle.contact.name" name="contactName" required #name="ngModel">
+        </md-form-field>
+        <md-hint class="error" *ngIf="name.touched && !name.valid">Please specify the name.</md-hint>
+        <md-form-field class="e-width">
+          <input mdInput id="contactPhone" placeholder="Phone" [(ngModel)]="vehicle.contact.phone" name="contactPhone" required #phone="ngModel">
+        </md-form-field>
+        <md-hint class="error" *ngIf="phone.touched && !phone.valid">Please specify the phone.</md-hint>
+        <md-form-field class="e-width">
+          <input mdInput id="contactEmail" placeholder="Email" [(ngModel)]="vehicle.contact.email" name="contactEmail" required #email="ngModel">
+        </md-form-field>
+        <md-hint class="error" *ngIf="email.touched && !email.valid">Please specify the email.</md-hint>
+      </section>
+      <button md-raised-button color="primary" [disabled]="!f.valid">Save</button>
+    </form>
+</div>
+</div>

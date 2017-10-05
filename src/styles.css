@@ -4,6 +4,8 @@
 @import "https://fonts.googleapis.com/css?family=Material+Icons";
 @import "https://fonts.googleapis.com/css?family=Roboto:400,300";
 
+@import "~ng2-toasty/style-material.css";
+
 html, body {
   display: flex;
   flex-direction: column;

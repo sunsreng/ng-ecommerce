@@ -1,5 +1,4 @@
-import { FeatureService } from './../feature.service';
-import { MakeService } from './../make.service';
+import { VehicleService } from '../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,17 +10,38 @@ export class VehicleFormComponent implements OnInit {
   features: any[];
   makes: any[];
   models: any[];
-  vehicle: any = {};
+  vehicle: any = {
+    features: [],
+    contact: {}
+  };
 
-  constructor(private makeService: MakeService, private featureService: FeatureService) { }
+  constructor(private vehicleService: VehicleService) {
+
+   }
 
   ngOnInit() {
-    this.makeService.getMakes().subscribe(makes => this.makes = makes);
-    this.featureService.getFeatures().subscribe(features => this.features = features);
+    this.vehicleService.getMakes().subscribe(makes => this.makes = makes);
+    this.vehicleService.getFeatures().subscribe(features => this.features = features);
   }
 
   onMakeChange() {
-    const selectedMake = this.makes.find(m => m.id === this.vehicle.make);
+    const selectedMake = this.makes.find(m => m.id === this.vehicle.makeId);
     this.models = selectedMake ?  selectedMake.models : [];
+    delete this.vehicle.modelId;
+  }
+
+  onFeatureToggle(featureId, $event) {
+    if ($event.checked) {
+      this.vehicle.features.push(featureId);
+    }
+    else {
+      const index = this.vehicle.features.indexOf(featureId);
+      this.vehicle.features.splice(index, 1);
+    }
+  }
+
+  submit() {
+    this.vehicleService.create(this.vehicle)
+    .subscribe(x => console.log(x));
   }
 }

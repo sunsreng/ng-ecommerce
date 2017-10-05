@@ -1,9 +1,10 @@
-import { FeatureService } from './feature.service';
-import { NgModule } from '@angular/core';
+import { ErrorsHandler } from './errors-handler';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from '@angular/material';
+// tslint:disable-next-line:max-line-length
+import { MdButtonModule, MdRadioModule, MdExpansionModule, MatMenuModule, MatSelectModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatTabsModule, MatIconModule, MatDialogModule, MatSidenavModule, MatInputModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -22,15 +23,16 @@ import { AuthService } from './auth.service';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { MakeService } from './make.service';
 import { MdNavbarComponent } from './md-navbar/md-navbar.component';
 import { MdToolbarComponent } from './md-toolbar/md-toolbar.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { ProductsComponent } from './products/products.component';
+import { VehicleService } from './services/vehicle.service';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { UserService } from './user.service';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
+import {ToastyModule} from 'ng2-toasty';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,7 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
     AdminOrdersComponent,
     LoginComponent,
     ProductFormComponent,
-    VehicleFormComponent
+    VehicleFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,10 +57,24 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    MaterialModule,
+    MdButtonModule,
+    MdRadioModule,
+    MdExpansionModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatTabsModule,
+    MatIconModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatInputModule,
+    MatCheckboxModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
+    ToastyModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'products', component: ProductsComponent },
@@ -77,12 +93,12 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
     ])
   ],
   providers: [
+    { provide: ErrorHandler, useClass: ErrorsHandler},
     AuthService,
     AuthGuardService,
     AdminAuthGuardService,
     UserService,
-    MakeService,
-    FeatureService
+    VehicleService
   ],
   bootstrap: [AppComponent]
 })

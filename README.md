@@ -7,3 +7,6 @@ firebase init
 ng build --prod
 
 firebase deploy
+
+
+npm install ng2-toasty --save
