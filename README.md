@@ -10,3 +10,7 @@ firebase deploy
 
 
 npm install ng2-toasty --save
+
+npm install raven-js --save
+
+npm install --save @types/underscore

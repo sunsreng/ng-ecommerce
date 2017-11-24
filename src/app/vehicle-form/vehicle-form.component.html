@@ -84,6 +84,7 @@ fxLayoutGap.xs="0">
         <md-hint class="error" *ngIf="email.touched && !email.valid">Please specify the email.</md-hint>
       </section>
       <button md-raised-button color="primary" [disabled]="!f.valid">Save</button>
+      <button *ngIf="vehicle.id" md-raised-button color="warn" type="button" (click)="delete()">Delete</button>
     </form>
 </div>
 </div>

@@ -1,10 +1,13 @@
+import * as Raven from 'raven-js';
+// import * as _ from 'underscore';
+// import 'underscore';
 import { ErrorsHandler } from './errors-handler';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 // tslint:disable-next-line:max-line-length
-import { MdButtonModule, MdRadioModule, MdExpansionModule, MatMenuModule, MatSelectModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatTabsModule, MatIconModule, MatDialogModule, MatSidenavModule, MatInputModule } from '@angular/material';
+import { MdButtonModule, MdRadioModule, MdExpansionModule, MatMenuModule, MatSelectModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatTabsModule, MatIconModule, MatDialogModule, MatSidenavModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -33,6 +36,10 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { UserService } from './user.service';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import {ToastyModule} from 'ng2-toasty';
+import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
+import { DataTableModule } from 'angular-4-data-table';
+
+Raven.config('https://5a0b52eacbdd4d86b19ef6909f8d9359@sentry.io/226172').install();
 
 @NgModule({
   declarations: [
@@ -50,6 +57,7 @@ import {ToastyModule} from 'ng2-toasty';
     LoginComponent,
     ProductFormComponent,
     VehicleFormComponent,
+    VehicleListComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,14 +82,21 @@ import {ToastyModule} from 'ng2-toasty';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    DataTableModule,
     ToastyModule.forRoot(),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
+      { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'home', component: HomeComponent },
 
       { path: 'vehicles/new', component: VehicleFormComponent },
+      { path: 'vehicles/:id', component: VehicleFormComponent },
+      { path: 'vehicles', component: VehicleListComponent },
 
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuardService] },
       { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuardService] },
@@ -89,7 +104,9 @@ import {ToastyModule} from 'ng2-toasty';
 
       { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
       { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
-      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuardService, AdminAuthGuardService] }
+      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
+
+      { path: '**', redirectTo: 'home' }
     ])
   ],
   providers: [
